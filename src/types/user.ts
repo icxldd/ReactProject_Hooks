@@ -9,5 +9,6 @@
 export interface user {
   id:string
   userName:string;
-
+  token:string;
+  avatarUrl:string;
 }

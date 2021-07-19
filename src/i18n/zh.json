@@ -8,5 +8,8 @@
     "checkNumber":"校验码",
     "login":"登陆",
     "title":"请登陆"
+  },
+  "homePage":{
+    "title":"首页"
   }
 }

@@ -8,5 +8,8 @@
     "checkNumber":"check Number",
     "login":"login",
     "title":"plase login"
+  },
+  "homePage":{
+    "title":"home page"
   }
 }

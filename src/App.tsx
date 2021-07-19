@@ -6,7 +6,8 @@ import { useTranslation } from 'react-i18next';
 import { userState } from './context/userAtom';
 import { useRecoilState } from 'recoil';
 import { user } from './types/user';
-import { LoginScreen } from './pages/unauthenticated-app/login';
+import { LoginScreen } from './unauthenticated-app/login';
+import { HomePage } from 'pages/home';
 
 
 
@@ -17,7 +18,7 @@ const App = () => {
   let isHasUser: boolean = !!_user.id;
 
   return (
-    isHasUser ? <h1>{_user.id}</h1> : <LoginScreen></LoginScreen>
+    isHasUser ? <HomePage></HomePage>: <LoginScreen></LoginScreen>
   );
 }
 // App.whyDidYouRender = true;

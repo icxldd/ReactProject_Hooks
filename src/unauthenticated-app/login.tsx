@@ -4,10 +4,10 @@
  * @Author: icxl
  * @Date: 2021-07-19 15:47:32
  * @LastEditors: icxl
- * @LastEditTime: 2021-07-19 19:30:53
+ * @LastEditTime: 2021-07-19 20:10:48
  */
 import styled from "@emotion/styled";
-import { Button, Card, Col, Form, Image, Input, Row } from "antd";
+import { Button, Card, Col, Form, Image, Input, message, Row } from "antd";
 import React from "react";
 import logo from 'assets/logo.png'
 import Password from "antd/lib/input/Password";
@@ -15,6 +15,9 @@ import { useDocumentTitle } from "hooks/useDocumentTitle";
 import { SwitchLanguage } from "components/switch-language";
 import { useTranslation } from "react-i18next";
 import { AccountService, LoginAccountByMobile, OpenAPI } from "apis";
+import { useRecoilState } from "recoil";
+import { user } from "types/user";
+import { userState } from "context/userAtom";
 type Headers = Record<string, string>;
 const CenterPage = styled.div`
   height: 100vh;
@@ -48,23 +51,24 @@ const Container = styled.div`
 
 export const LoginScreen = () => {
   const { t, i18n } = useTranslation();
+  const [_user, setUser] = useRecoilState<user>(userState);
   useDocumentTitle(t('loginPage.title'));
 
   const handleSubmit = async (values: {
     username: string;
     password: string;
   }) => {
-    let data = await AccountService.loginAccountByMobileauthmobilePost('application/json', values.username, values.password);
-
-
-    let heads: Headers = {
-      "X-ss-pid": data.sessionId as string, "X-ss-opt": 'perm'
-    };
-    OpenAPI.HEADERS = heads;
-
-    let self = await AccountService.showAccountshowGet('application/json');
-
-    console.log(self);
+    AccountService.loginAccountByMobileauthmobilePost('application/json', values.username, values.password).then(async x => {
+      let heads: Headers = {
+        "X-ss-pid": x.sessionId as string, "X-ss-opt": 'perm'
+      };
+      OpenAPI.HEADERS = heads;
+      let self = await AccountService.showAccountshowGet('application/json');
+      setUser({ id: (x.userId as number).toString(), token: x.sessionId as string, userName: self.account?.displayName ,avatarUrl:self.account?.avatarUrl} as user);
+      console.log(self);
+    }).catch(x => {
+      message.error(x?.body?.responseStatus?.message);
+    });
   };
 
   return (
