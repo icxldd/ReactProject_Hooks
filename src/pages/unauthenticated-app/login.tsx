@@ -4,7 +4,7 @@
  * @Author: icxl
  * @Date: 2021-07-19 15:47:32
  * @LastEditors: icxl
- * @LastEditTime: 2021-07-19 18:15:20
+ * @LastEditTime: 2021-07-19 19:30:53
  */
 import styled from "@emotion/styled";
 import { Button, Card, Col, Form, Image, Input, Row } from "antd";
@@ -14,6 +14,8 @@ import Password from "antd/lib/input/Password";
 import { useDocumentTitle } from "hooks/useDocumentTitle";
 import { SwitchLanguage } from "components/switch-language";
 import { useTranslation } from "react-i18next";
+import { AccountService, LoginAccountByMobile, OpenAPI } from "apis";
+type Headers = Record<string, string>;
 const CenterPage = styled.div`
   height: 100vh;
   position: absolute;
@@ -52,8 +54,17 @@ export const LoginScreen = () => {
     username: string;
     password: string;
   }) => {
-    console.log(values.username, values.password)
+    let data = await AccountService.loginAccountByMobileauthmobilePost('application/json', values.username, values.password);
 
+
+    let heads: Headers = {
+      "X-ss-pid": data.sessionId as string, "X-ss-opt": 'perm'
+    };
+    OpenAPI.HEADERS = heads;
+
+    let self = await AccountService.showAccountshowGet('application/json');
+
+    console.log(self);
   };
 
   return (
@@ -86,3 +97,4 @@ export const LoginScreen = () => {
       </ShadowCard>
     </Container>);
 };
+
