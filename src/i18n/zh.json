@@ -1,0 +1,12 @@
+{
+  "switchLanguage": "切换语言",
+  "english": "英语",
+  "china": "中文",
+  "test":"程先龙",
+  "loginPage":{
+    "userName":"用户名",
+    "checkNumber":"校验码",
+    "login":"登陆",
+    "title":"请登陆"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "switchLanguage":"switch Language",
+  "english": "English",
+  "china": "China",
+  "test":"icxl",
+  "loginPage":{
+    "userName":"user Name",
+    "checkNumber":"check Number",
+    "login":"login",
+    "title":"plase login"
+  }
+}
