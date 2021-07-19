@@ -4,12 +4,17 @@
   "china": "China",
   "test":"icxl",
   "loginPage":{
-    "userName":"user Name",
-    "checkNumber":"check Number",
-    "login":"login",
-    "title":"plase login"
+    "userName":"User Name",
+    "checkNumber":"Check Number",
+    "login":"Login",
+    "title":"Plase Login"
   },
   "homePage":{
-    "title":"home page"
+    "title":"Home page",
+    "inspections":"Artificial inspections",
+    "guildManage":"Guild manage",
+    "liveManage":"Live manage",
+    "cloudGuildText":"Cloud Guild Console",
+    "exitLogin":"Exit Login"
   }
 }

@@ -4,10 +4,10 @@
  * @Author: icxl
  * @Date: 2021-07-19 20:00:27
  * @LastEditors: icxl
- * @LastEditTime: 2021-07-19 21:07:37
+ * @LastEditTime: 2021-07-19 21:41:26
  */
 import { useDocumentTitle } from "hooks/useDocumentTitle";
-import React from "react";
+import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import styled from "@emotion/styled";
 
@@ -18,27 +18,57 @@ import { Navigate, Route, Routes } from "react-router";
 import { GuildPage } from "./guild-page";
 import { LivePage } from "./live-page";
 import { Link } from "react-router-dom";
+import { SwitchLanguage } from "components/switch-language";
+import { DefaultValue, useRecoilState } from "recoil";
+import { userState } from "context/userAtom";
+import { user } from "types/user";
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
 
 const HomeLogoImage = styled(Image)`
- margin-top: .325rem;
- width: 3.125rem;
- height: 3.125rem;
+ margin-top: .425rem;
+ width: 3rem;
+ height: 3rem;
  border-radius: 50%;
- 
+`;
+
+
+const HomeHeadSpan = styled.span`
+    color: #fff;
+    position: relative;
+    top: -10px;
+    left: 10px;
+`;
+
+
+const HomeHeadRight = styled.div`
+  position: absolute;
+  right: 10%;
+  top: .625rem;
+`;
+const HomeHeadLogout = styled.span`
+ color:#fff;
+ cursor: pointer;
+ margin-left:20px;
 `;
 
 export const HomePage = () => {
   const { t, i18n } = useTranslation();
   useDocumentTitle(t('homePage.title'));
-
-
+  const [_user, setUser] = useRecoilState<user>(userState);
 
   return (
     <Layout>
       <Header className="header">
         <HomeLogoImage src={logo} preview={false}></HomeLogoImage>
+        <HomeHeadSpan>{t('homePage.cloudGuildText')}</HomeHeadSpan>
+        <HomeHeadRight>
+          <SwitchLanguage style={{ color: '#fff', bottom: '10px' }}></SwitchLanguage>
+          <HomeHeadLogout onClick={() => {
+            setUser({} as user);
+            window.location.href = "http://localhost:3000";
+          }}>{t('homePage.exitLogin')}</HomeHeadLogout>
+        </HomeHeadRight>
       </Header>
       <Content style={{ padding: '0 50px', minHeight: '86vh' }}>
         {/* <PageHeader
@@ -54,12 +84,12 @@ export const HomePage = () => {
               defaultOpenKeys={['sub1']}
               style={{ height: '100%' }}
             >
-              <SubMenu key="sub1" icon={<UserOutlined />} title="人工巡查">
+              <SubMenu key="sub1" icon={<UserOutlined />} title={t('homePage.inspections')}>
                 <Menu.Item key="1">
-                  <Link to={"guild"}>教会管理</Link>
+                  <Link to={"guild"}>{t('homePage.guildManage')}</Link>
                 </Menu.Item>
                 <Menu.Item key="2" >
-                  <Link to={"live"}>直播管理</Link>
+                  <Link to={"live"}>{t('homePage.liveManage')}</Link>
                 </Menu.Item>
               </SubMenu>
             </Menu>

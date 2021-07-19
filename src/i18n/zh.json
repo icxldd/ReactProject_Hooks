@@ -10,6 +10,11 @@
     "title":"请登陆"
   },
   "homePage":{
-    "title":"首页"
+    "title":"首页",
+    "inspections":"人工巡查",
+    "guildManage":"教会管理",
+    "liveManage":"直播管理",
+    "cloudGuildText":"云教会控制台",
+    "exitLogin":"退出登陆"
   }
 }
