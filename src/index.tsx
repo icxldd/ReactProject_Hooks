@@ -4,7 +4,7 @@
  * @Author: icxl
  * @Date: 2021-07-19 14:07:32
  * @LastEditors: icxl
- * @LastEditTime: 2021-07-19 21:03:02
+ * @LastEditTime: 2021-07-20 10:47:46
  */
 import "./wdyr";
 import React from 'react';
@@ -14,12 +14,16 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { RecoilRoot } from 'recoil';
 import { BrowserRouter } from "react-router-dom";
+import { AppProviders } from "context/AppProviders";
 
 ReactDOM.render(
   <React.StrictMode>
     <RecoilRoot>
       <BrowserRouter>
-        <App /></BrowserRouter>
+        <AppProviders>
+          <App />
+        </AppProviders>
+      </BrowserRouter>
     </RecoilRoot>
   </React.StrictMode>,
   document.getElementById('root')

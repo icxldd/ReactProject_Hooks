@@ -4,10 +4,11 @@
  * @Author: icxl
  * @Date: 2021-07-19 16:14:07
  * @LastEditors: icxl
- * @LastEditTime: 2021-07-19 17:01:37
+ * @LastEditTime: 2021-07-20 10:56:50
  */
 // import { AtomEffect, DefaultValue } from 'recoil';
 
+import { OpenAPI } from "apis";
 import { DefaultValue } from "recoil";
 
 // /** Check if there's an initial value persisted and load it on set  */
@@ -38,11 +39,20 @@ import { DefaultValue } from "recoil";
 //   });
 // };
 
-
+type Headers = Record<string, string>;
 export const localStorageEffect = (key: string) => ({ setSelf, onSet }: any) => {
   const savedValue = localStorage.getItem(key)
   if (savedValue != null) {
-    setSelf(JSON.parse(savedValue));
+    let obj: any = JSON.parse(savedValue);
+    setSelf(obj);
+    if (key == 'userState') {
+      let heads: Headers = {
+        "X-ss-pid": obj.token as string, "X-ss-opt": 'perm'
+      };
+      OpenAPI.HEADERS = heads;
+    }
+
+
   }
 
   onSet((newValue: any) => {

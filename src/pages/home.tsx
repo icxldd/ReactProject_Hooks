@@ -25,7 +25,7 @@ import { user } from "types/user";
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
 
-const HomeLogoImage = styled(Image)`
+export const HomeLogoImage = styled(Image)`
  margin-top: .425rem;
  width: 3rem;
  height: 3rem;
