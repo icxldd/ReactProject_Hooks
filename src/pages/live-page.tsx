@@ -4,15 +4,45 @@
  * @Author: icxl
  * @Date: 2021-07-19 20:52:26
  * @LastEditors: icxl
- * @LastEditTime: 2021-07-20 14:22:32
+ * @LastEditTime: 2021-07-20 14:58:37
  */
 import { Button, Input, Modal, PageHeader, Pagination, Space, Table, Tag } from 'antd';
 import { LivecastAdminDto } from 'apis';
 import dayjs from 'dayjs';
 import { useDocumentTitle, useUrlQueryParam } from 'hooks/useDocumentTitle';
 import { useLivecastParam, useLivecasts } from 'hooks/useHttpApi';
-import react, { useRef, useState } from 'react'
-import DPlayer from "dplayer";
+import react, { useEffect, useRef, useState } from 'react'
+import DPlayer, { DPlayerOptions } from "dplayer";
+
+
+interface ChurchPlayerProps
+  extends Partial<DPlayerOptions> {
+  url?: string
+}
+
+
+const ChurchPlayer = (props: ChurchPlayerProps) => {
+  const { url, ...restProps } = props;
+  let [dp, setDp] = useState<DPlayer>();
+  useEffect(() => {
+    setDp(new DPlayer({
+      container: document.getElementById('video'),
+      video: {
+        url: url as string,
+        type: 'auto',
+      },
+      ...restProps
+    }));
+    return () => {
+      dp?.pause();
+    }
+  }, [props.url])
+  return (<div id="video">
+
+  </div>);
+
+}
+
 
 export const LivePage = () => {
   useDocumentTitle("直播管理");
@@ -33,21 +63,18 @@ export const LivePage = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
 
-  const [palyer, setPlyaer] = useState<any>();
-
+  const [palyerUrl, setPlyaerUrl] = useState<string>();
 
   const handleOk = () => {
-    palyer.pause();
     setIsModalVisible(false);
   };
 
   const handleCancel = () => {
-    palyer.pause();
     setIsModalVisible(false);
   };
   return (<div>
     <Modal title="视频播放" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-      <div id="video" style={{ width: '450px', height: '300px' }}></div>
+      <ChurchPlayer url={palyerUrl} autoplay={true}></ChurchPlayer>
     </Modal>
     <PageHeader
       className="site-page-header"
@@ -121,18 +148,8 @@ export const LivePage = () => {
           render: (text, livecast: LivecastAdminDto) => (
             <Space size="middle">
               <Button disabled={livecast.recordUrl == null} onClick={x => {
+                setPlyaerUrl(livecast.recordUrl);
                 setIsModalVisible(true);
-                setTimeout(x => {
-                  setPlyaer(new DPlayer({
-                    autoplay: true,
-                    container: document.getElementById('video'),
-                    video: {
-                      url: livecast.recordUrl as string,
-                      type: 'auto',
-                    },
-                  }));
-
-                }, 500);
               }}>视频播放</Button>
             </Space>
           ),
