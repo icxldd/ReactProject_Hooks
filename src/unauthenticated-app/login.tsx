@@ -4,7 +4,7 @@
  * @Author: icxl
  * @Date: 2021-07-19 15:47:32
  * @LastEditors: icxl
- * @LastEditTime: 2021-07-20 09:09:03
+ * @LastEditTime: 2021-07-20 09:38:09
  */
 import styled from "@emotion/styled";
 import { Button, Card, Col, Form, Image, Input, message, Row } from "antd";
@@ -72,7 +72,7 @@ export const LoginScreen = () => {
   };
 
   return (
-    <Container>
+    < Container >
       <ShadowCard>
         <Image src={logo} preview={false} />
         <Form onFinish={handleSubmit}>
@@ -99,6 +99,6 @@ export const LoginScreen = () => {
         </Form>
 
       </ShadowCard>
-    </Container>);
+    </Container >);
 };
 

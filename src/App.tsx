@@ -8,17 +8,16 @@ import { useRecoilState } from 'recoil';
 import { user } from './types/user';
 import { LoginScreen } from './unauthenticated-app/login';
 import { HomePage } from 'pages/home';
+import { useState } from 'react';
 
 
 
-const App = () => {
-  const [_user, setUser] = useRecoilState<user>(userState);
-  useEffect(() => {
-  }, [])
-  let isHasUser: boolean = !!_user.id;
+const App =  () => {
+
+  const [_user, setUser] =useRecoilState<user>(userState);
 
   return (
-    isHasUser ? <HomePage></HomePage>: <LoginScreen></LoginScreen>
+    _user.id ? <HomePage></HomePage> : <LoginScreen></LoginScreen>
   );
 }
 // App.whyDidYouRender = true;

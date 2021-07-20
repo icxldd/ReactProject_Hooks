@@ -4,7 +4,7 @@
  * @Author: icxl
  * @Date: 2021-07-19 20:00:27
  * @LastEditors: icxl
- * @LastEditTime: 2021-07-20 09:18:41
+ * @LastEditTime: 2021-07-20 09:23:08
  */
 import { useDocumentTitle } from "hooks/useDocumentTitle";
 import React, { useCallback } from "react";
@@ -44,7 +44,7 @@ const HomeHeadSpan = styled.span`
 const HomeHeadRight = styled.div`
   position: absolute;
   right: 10%;
-  top: .625rem;
+  top: .325rem;
 `;
 const HomeHeadLogout = styled.span`
  color:#fff;
