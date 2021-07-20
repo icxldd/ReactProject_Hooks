@@ -4,7 +4,7 @@
  * @Author: icxl
  * @Date: 2021-07-19 20:00:27
  * @LastEditors: icxl
- * @LastEditTime: 2021-07-20 13:14:00
+ * @LastEditTime: 2021-07-20 13:44:24
  */
 import { useDocumentTitle } from "hooks/useDocumentTitle";
 import React, { useCallback } from "react";
@@ -73,11 +73,6 @@ export const HomePage = () => {
         </HomeHeadRight>
       </Header>
       <Content style={{ padding: '0 50px', minHeight: '86vh' }}>
-        {/* <PageHeader
-          className="site-page-header"
-          title="Title"
-          subTitle="This is a subtitle"
-        /> */}
         <Layout className="site-layout-background" style={{ padding: '24px 0' }}>
           <Sider className="site-layout-background" width={200}>
             <Menu

@@ -4,12 +4,12 @@
  * @Author: icxl
  * @Date: 2021-07-19 20:52:26
  * @LastEditors: icxl
- * @LastEditTime: 2021-07-20 13:07:42
+ * @LastEditTime: 2021-07-20 13:42:11
  */
 import { Button, Input, PageHeader, Pagination, Space, Table, Tag } from 'antd';
 import { LivecastAdminDto } from 'apis';
 import dayjs from 'dayjs';
-import { useDocumentTitle } from 'hooks/useDocumentTitle';
+import { useDocumentTitle, useUrlQueryParam } from 'hooks/useDocumentTitle';
 import { useLivecastParam, useLivecasts } from 'hooks/useHttpApi';
 import react, { useRef, useState } from 'react'
 
@@ -19,8 +19,15 @@ export const LivePage=()=>{
 
 
   const inputRef = useRef<any>();
-  const [useLivecastParam, setUseGuildParam] = useState({} as useLivecastParam);
-  const { isLoading, error, data: list } = useLivecasts(useLivecastParam);
+  const [useLivecastParam, setUseGuildParam] = useUrlQueryParam([
+    "first",
+    "rows",
+    "data"
+  ]);
+  const { isLoading, error, data: list } = useLivecasts(useLivecastParam as unknown as useLivecastParam);
+  
+  // const [useLivecastParam, setUseGuildParam] = useState({} as useLivecastParam);
+  // const { isLoading, error, data: list } = useLivecasts(useLivecastParam);
   
   const handleTableChange = (page: number, pageSize?: number | undefined) => {
     setUseGuildParam({ first: (page - 1) * (pageSize as number), rows: pageSize, data: inputRef.current.input.value } as useLivecastParam);

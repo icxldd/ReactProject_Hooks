@@ -4,12 +4,12 @@
  * @Author: icxl
  * @Date: 2021-07-19 20:51:30
  * @LastEditors: icxl
- * @LastEditTime: 2021-07-20 12:53:21
+ * @LastEditTime: 2021-07-20 13:31:25
  */
 import { Button, Col, Image, Input, PageHeader, Pagination, Row, Table, Tag } from 'antd';
 import { GuildAdminDto, SpaadminService } from 'apis';
 import dayjs from 'dayjs';
-import { cleanObject, useDebounce, useDocumentTitle } from 'hooks/useDocumentTitle';
+import { cleanObject, useDebounce, useDocumentTitle, useUrlQueryParam } from 'hooks/useDocumentTitle';
 import { useGuildParam, useGuilds } from 'hooks/useHttpApi';
 import react, { useRef } from 'react'
 import { useState } from 'react';
@@ -20,8 +20,12 @@ import { HomeLogoImage } from './home';
 export const GuildPage = () => {
   useDocumentTitle("教会管理");
   const inputRef = useRef<any>();
-  const [useGuildParam, setUseGuildParam] = useState({} as useGuildParam);
-  const { isLoading, error, data: list } = useGuilds(useGuildParam);
+  const [useGuildParam, setUseGuildParam] = useUrlQueryParam([
+    "first",
+    "rows",
+    "data"
+  ]);
+  const { isLoading, error, data: list } = useGuilds(useGuildParam as unknown as useGuildParam);
   
   const handleTableChange = (page: number, pageSize?: number | undefined) => {
     setUseGuildParam({ first: (page - 1) * (pageSize as number), rows: pageSize, data: inputRef.current.input.value } as useGuildParam);
