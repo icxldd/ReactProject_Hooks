@@ -4,7 +4,7 @@
  * @Author: icxl
  * @Date: 2021-07-19 20:00:27
  * @LastEditors: icxl
- * @LastEditTime: 2021-07-20 13:44:24
+ * @LastEditTime: 2021-07-20 13:58:30
  */
 import { useDocumentTitle } from "hooks/useDocumentTitle";
 import React, { useCallback } from "react";
@@ -52,6 +52,7 @@ const HomeHeadLogout = styled.span`
  cursor: pointer;
  margin-left:20px;
 `;
+
 
 export const HomePage = () => {
   const { t, i18n } = useTranslation();

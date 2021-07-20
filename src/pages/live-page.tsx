@@ -4,17 +4,17 @@
  * @Author: icxl
  * @Date: 2021-07-19 20:52:26
  * @LastEditors: icxl
- * @LastEditTime: 2021-07-20 13:42:11
+ * @LastEditTime: 2021-07-20 14:22:32
  */
-import { Button, Input, PageHeader, Pagination, Space, Table, Tag } from 'antd';
+import { Button, Input, Modal, PageHeader, Pagination, Space, Table, Tag } from 'antd';
 import { LivecastAdminDto } from 'apis';
 import dayjs from 'dayjs';
 import { useDocumentTitle, useUrlQueryParam } from 'hooks/useDocumentTitle';
 import { useLivecastParam, useLivecasts } from 'hooks/useHttpApi';
 import react, { useRef, useState } from 'react'
+import DPlayer from "dplayer";
 
-
-export const LivePage=()=>{
+export const LivePage = () => {
   useDocumentTitle("直播管理");
 
 
@@ -25,15 +25,30 @@ export const LivePage=()=>{
     "data"
   ]);
   const { isLoading, error, data: list } = useLivecasts(useLivecastParam as unknown as useLivecastParam);
-  
-  // const [useLivecastParam, setUseGuildParam] = useState({} as useLivecastParam);
-  // const { isLoading, error, data: list } = useLivecasts(useLivecastParam);
-  
+
   const handleTableChange = (page: number, pageSize?: number | undefined) => {
     setUseGuildParam({ first: (page - 1) * (pageSize as number), rows: pageSize, data: inputRef.current.input.value } as useLivecastParam);
   };
 
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+
+  const [palyer, setPlyaer] = useState<any>();
+
+
+  const handleOk = () => {
+    palyer.pause();
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    palyer.pause();
+    setIsModalVisible(false);
+  };
   return (<div>
+    <Modal title="视频播放" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+      <div id="video" style={{ width: '450px', height: '300px' }}></div>
+    </Modal>
     <PageHeader
       className="site-page-header"
       title="直播管理"
@@ -69,10 +84,10 @@ export const LivePage=()=>{
         {
           title: "描述",
           key: "description",
-          render(value, livecast:LivecastAdminDto) {
+          render(value, livecast: LivecastAdminDto) {
             return (
               <span>
-               {livecast.description?.substring(0,20)+'...'}
+                {livecast.description?.substring(0, 20) + '...'}
               </span>
             );
           },
@@ -80,16 +95,16 @@ export const LivePage=()=>{
         {
           title: "状态",
           key: "status",
-          render(value, livecast:LivecastAdminDto) {
+          render(value, livecast: LivecastAdminDto) {
             return (
-              livecast.status==0?<Tag color="#87d068">直播中</Tag>:<Tag color="#108ee9">已结束</Tag>
+              livecast.status == 0 ? <Tag color="#87d068">直播中</Tag> : <Tag color="#108ee9">已结束</Tag>
             );
           },
         },
         {
           title: "创建时间",
           key: "createdDate",
-          render(value, livecast:LivecastAdminDto) {
+          render(value, livecast: LivecastAdminDto) {
             return (
               <span>
                 {livecast.createdDate
@@ -103,9 +118,22 @@ export const LivePage=()=>{
         {
           title: '操作',
           key: 'action',
-          render: (text, record) => (
+          render: (text, livecast: LivecastAdminDto) => (
             <Space size="middle">
-              <a>视频播放</a>
+              <Button disabled={livecast.recordUrl == null} onClick={x => {
+                setIsModalVisible(true);
+                setTimeout(x => {
+                  setPlyaer(new DPlayer({
+                    autoplay: true,
+                    container: document.getElementById('video'),
+                    video: {
+                      url: livecast.recordUrl as string,
+                      type: 'auto',
+                    },
+                  }));
+
+                }, 500);
+              }}>视频播放</Button>
             </Space>
           ),
         },
