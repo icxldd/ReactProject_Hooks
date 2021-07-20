@@ -4,7 +4,7 @@
  * @Author: icxl
  * @Date: 2021-07-19 20:00:27
  * @LastEditors: icxl
- * @LastEditTime: 2021-07-19 21:41:26
+ * @LastEditTime: 2021-07-20 09:18:41
  */
 import { useDocumentTitle } from "hooks/useDocumentTitle";
 import React, { useCallback } from "react";
@@ -63,7 +63,7 @@ export const HomePage = () => {
         <HomeLogoImage src={logo} preview={false}></HomeLogoImage>
         <HomeHeadSpan>{t('homePage.cloudGuildText')}</HomeHeadSpan>
         <HomeHeadRight>
-          <SwitchLanguage style={{ color: '#fff', bottom: '10px' }}></SwitchLanguage>
+          <SwitchLanguage fontColor={'#fff'} style={{ color: '#fff', bottom: '10px' }}></SwitchLanguage>
           <HomeHeadLogout onClick={() => {
             setUser({} as user);
             window.location.href = "http://localhost:3000";

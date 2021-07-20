@@ -4,7 +4,7 @@
  * @Author: icxl
  * @Date: 2021-07-19 15:47:32
  * @LastEditors: icxl
- * @LastEditTime: 2021-07-19 20:10:48
+ * @LastEditTime: 2021-07-20 09:09:03
  */
 import styled from "@emotion/styled";
 import { Button, Card, Col, Form, Image, Input, message, Row } from "antd";
@@ -64,7 +64,7 @@ export const LoginScreen = () => {
       };
       OpenAPI.HEADERS = heads;
       let self = await AccountService.showAccountshowGet('application/json');
-      setUser({ id: (x.userId as number).toString(), token: x.sessionId as string, userName: self.account?.displayName ,avatarUrl:self.account?.avatarUrl} as user);
+      setUser({ id: (x.userId as number).toString(), token: x.sessionId as string, userName: self.account?.displayName, avatarUrl: self.account?.avatarUrl } as user);
       console.log(self);
     }).catch(x => {
       message.error(x?.body?.responseStatus?.message);
