@@ -4,9 +4,9 @@
  * @Author: icxl
  * @Date: 2021-07-19 20:52:26
  * @LastEditors: icxl
- * @LastEditTime: 2021-07-20 13:04:00
+ * @LastEditTime: 2021-07-20 13:07:42
  */
-import { Button, Input, PageHeader, Pagination, Table, Tag } from 'antd';
+import { Button, Input, PageHeader, Pagination, Space, Table, Tag } from 'antd';
 import { LivecastAdminDto } from 'apis';
 import dayjs from 'dayjs';
 import { useDocumentTitle } from 'hooks/useDocumentTitle';
@@ -92,7 +92,16 @@ export const LivePage=()=>{
             );
           },
 
-        }
+        },
+        {
+          title: '操作',
+          key: 'action',
+          render: (text, record) => (
+            <Space size="middle">
+              <a>视频播放</a>
+            </Space>
+          ),
+        },
       ]}
     />
 
