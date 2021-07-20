@@ -4,7 +4,7 @@
  * @Author: icxl
  * @Date: 2021-07-19 20:51:30
  * @LastEditors: icxl
- * @LastEditTime: 2021-07-20 12:46:40
+ * @LastEditTime: 2021-07-20 12:53:21
  */
 import { Button, Col, Image, Input, PageHeader, Pagination, Row, Table, Tag } from 'antd';
 import { GuildAdminDto, SpaadminService } from 'apis';
@@ -18,15 +18,11 @@ import { HomeLogoImage } from './home';
 
 
 export const GuildPage = () => {
-  const queryClient = new QueryClient();
-
   useDocumentTitle("教会管理");
-
   const inputRef = useRef<any>();
   const [useGuildParam, setUseGuildParam] = useState({} as useGuildParam);
-
   const { isLoading, error, data: list } = useGuilds(useGuildParam);
-
+  
   const handleTableChange = (page: number, pageSize?: number | undefined) => {
     setUseGuildParam({ first: (page - 1) * (pageSize as number), rows: pageSize, data: inputRef.current.input.value } as useGuildParam);
   };
@@ -96,8 +92,7 @@ export const GuildPage = () => {
       ]}
     />
 
-    <Pagination defaultCurrent={1} showQuickJumper={true} total={list?.totalRecords} onChange={handleTableChange} style={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }} />
-
+    <Pagination showQuickJumper={true} total={list?.totalRecords} onChange={handleTableChange} style={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }} />
 
 
   </div>);
