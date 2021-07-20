@@ -4,7 +4,7 @@
  * @Author: icxl
  * @Date: 2021-07-19 20:00:27
  * @LastEditors: icxl
- * @LastEditTime: 2021-07-20 13:58:30
+ * @LastEditTime: 2021-07-20 15:06:02
  */
 import { useDocumentTitle } from "hooks/useDocumentTitle";
 import React, { useCallback } from "react";
@@ -14,7 +14,7 @@ import styled from "@emotion/styled";
 import { Layout, Menu, Breadcrumb, Image, PageHeader } from 'antd';
 import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
 import logo from 'assets/logo.png'
-import { Navigate, Route, Routes } from "react-router";
+import { Navigate, Route, Routes, useLocation } from "react-router";
 import { GuildPage } from "./guild-page";
 import { LivePage } from "./live-page";
 import { Link } from "react-router-dom";
@@ -52,13 +52,16 @@ const HomeHeadLogout = styled.span`
  cursor: pointer;
  margin-left:20px;
 `;
-
+const useRouteType = () => {
+  const units = useLocation().pathname.split("/");
+  return units[units.length - 1];
+};
 
 export const HomePage = () => {
   const { t, i18n } = useTranslation();
   useDocumentTitle(t('homePage.title'));
   const [_user, setUser] = useRecoilState<user>(userState);
-
+  const routeType = useRouteType();
   return (
     <Layout>
       <Header className="header">
@@ -78,15 +81,15 @@ export const HomePage = () => {
           <Sider className="site-layout-background" width={200}>
             <Menu
               mode="inline"
-              defaultSelectedKeys={['1']}
+              defaultSelectedKeys={[routeType]}
               defaultOpenKeys={['sub1']}
               style={{ height: '100%' }}
             >
               <SubMenu key="sub1" icon={<UserOutlined />} title={t('homePage.inspections')}>
-                <Menu.Item key="1">
+                <Menu.Item key="guild">
                   <Link to={"guild"}>{t('homePage.guildManage')}</Link>
                 </Menu.Item>
-                <Menu.Item key="2" >
+                <Menu.Item key="live" >
                   <Link to={"live"}>{t('homePage.liveManage')}</Link>
                 </Menu.Item>
               </SubMenu>
