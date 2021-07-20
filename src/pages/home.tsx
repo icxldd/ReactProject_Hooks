@@ -4,7 +4,7 @@
  * @Author: icxl
  * @Date: 2021-07-19 20:00:27
  * @LastEditors: icxl
- * @LastEditTime: 2021-07-20 15:06:02
+ * @LastEditTime: 2021-07-20 15:08:48
  */
 import { useDocumentTitle } from "hooks/useDocumentTitle";
 import React, { useCallback } from "react";
@@ -72,7 +72,7 @@ export const HomePage = () => {
           <HomeHeadLogout onClick={() => {
             setUser({} as user);
             OpenAPI.HEADERS = undefined;
-            window.location.href = "http://localhost:3000";
+            window.location.href = "/";
           }}>{t('homePage.exitLogin')}</HomeHeadLogout>
         </HomeHeadRight>
       </Header>
