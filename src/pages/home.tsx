@@ -4,7 +4,7 @@
  * @Author: icxl
  * @Date: 2021-07-19 20:00:27
  * @LastEditors: icxl
- * @LastEditTime: 2021-07-20 09:23:08
+ * @LastEditTime: 2021-07-20 13:14:00
  */
 import { useDocumentTitle } from "hooks/useDocumentTitle";
 import React, { useCallback } from "react";
@@ -22,6 +22,7 @@ import { SwitchLanguage } from "components/switch-language";
 import { DefaultValue, useRecoilState } from "recoil";
 import { userState } from "context/userAtom";
 import { user } from "types/user";
+import { OpenAPI } from "apis";
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -66,6 +67,7 @@ export const HomePage = () => {
           <SwitchLanguage fontColor={'#fff'} style={{ color: '#fff', bottom: '10px' }}></SwitchLanguage>
           <HomeHeadLogout onClick={() => {
             setUser({} as user);
+            OpenAPI.HEADERS = undefined;
             window.location.href = "http://localhost:3000";
           }}>{t('homePage.exitLogin')}</HomeHeadLogout>
         </HomeHeadRight>

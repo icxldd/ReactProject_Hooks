@@ -4,7 +4,7 @@
  * @Author: icxl
  * @Date: 2021-07-19 16:14:07
  * @LastEditors: icxl
- * @LastEditTime: 2021-07-20 10:56:50
+ * @LastEditTime: 2021-07-20 13:15:04
  */
 // import { AtomEffect, DefaultValue } from 'recoil';
 
@@ -46,10 +46,12 @@ export const localStorageEffect = (key: string) => ({ setSelf, onSet }: any) => 
     let obj: any = JSON.parse(savedValue);
     setSelf(obj);
     if (key == 'userState') {
-      let heads: Headers = {
-        "X-ss-pid": obj.token as string, "X-ss-opt": 'perm'
-      };
-      OpenAPI.HEADERS = heads;
+      if (obj.token) {
+        let heads: Headers = {
+          "X-ss-pid": obj.token as string, "X-ss-opt": 'perm'
+        };
+        OpenAPI.HEADERS = heads;
+      }
     }
 
 
